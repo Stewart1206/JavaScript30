@@ -9,6 +9,13 @@ body,html {
   font-family: sans-serif;
 }
 
+h1 {
+  text-align: center;
+  color: #ffc600;
+  background-color: black;
+  font-size: 7em;
+}
+
 .keys {
   display: flex;
   flex: 1;

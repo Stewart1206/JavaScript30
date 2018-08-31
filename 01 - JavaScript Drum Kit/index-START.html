@@ -6,7 +6,9 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
+  <header class="title">
+    <h1><strong>Stewart's Drum Kit</strong></h1>
+  </header>
 
   <div class="keys">
     <div data-key="65" class="key">
@@ -58,7 +60,24 @@
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
 <script>
+  function removeTransition(e) {
+    if(e.propertyName !== 'transform') return; //skip if it is not a transform
+    this.classList.remove('playing');
+  }
 
+  function playSound(e) {
+    const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+    const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+    if(!audio) return; //prevents function running when unmatched keys are pressed.
+
+    key.classList.add('playing');
+    audio.currentTime = 0; //Rewinds audio file to start.
+    audio.play();
+  }
+
+  const keys = Array.from(document.querySelectorAll('.key'));
+  keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+  window.addEventListener('keydown', playSound);
 </script>
 
 
